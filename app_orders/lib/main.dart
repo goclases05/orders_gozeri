@@ -1,5 +1,4 @@
 import 'package:app_orders/components/background_stack.dart';
-import 'package:app_orders/screen/list_orders.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
@@ -28,8 +27,8 @@ class MyApp extends StatelessWidget {
       ),
       initialRoute: 'Stack',
       routes: {
-        'Orders': (_) => const ListOrders(),
         'Stack': (_) => const BackgroundStack(),
+        'Create_Orders': (_) => const BackgroundStack(),
       },
     );
   }

@@ -1,4 +1,8 @@
+import 'package:app_orders/screen/create_order_tabs.dart';
+import 'package:app_orders/screen/screen.dart';
 import 'package:flutter/material.dart';
+import 'package:page_transition/page_transition.dart';
+
 
 class BackgroundStack extends StatefulWidget {
   const BackgroundStack({Key? key}) : super(key: key);
@@ -14,7 +18,7 @@ class _BackgroundStackState extends State<BackgroundStack> {
   Widget build(BuildContext context) {
     Color? primary = Colors.cyan[600];
     Color? secondary = Colors.cyan[800];
-    Color? background_color = Colors.grey[100];
+    Color? background_color = Colors.grey[300];
     height = MediaQuery.of(context).size.height;
     width = MediaQuery.of(context).size.width;
 
@@ -24,19 +28,8 @@ class _BackgroundStackState extends State<BackgroundStack> {
             height: height,
             primary: primary,
             background_color: background_color),
-        Scaffold(
-          backgroundColor: Colors.transparent,
-          appBar: AppBar(
-            elevation: 0,
-            backgroundColor: primary,
-            title: Image.asset(
-              'assets/logos/gozeri_green.png',
-              width: 100,
-            ),
-          ),
-          body: Container(
-              margin: EdgeInsets.only(top: height * 0.1), child: Column()),
-        ),
+        
+        ListOrders(primary: primary, height: height,secondary:secondary,whith: width,),
         Positioned(
           top: height * 0.17,
           right: 50,
@@ -45,14 +38,21 @@ class _BackgroundStackState extends State<BackgroundStack> {
             elevation: 5,
             onPressed: () {
               // Respond to button press
+              Navigator.push(context,
+                PageTransition(
+                    duration: const Duration(milliseconds: 500),
+                    type: PageTransitionType.bottomToTop,
+                    child: CreateOrders()
+                )
+              );
             },
-            icon: Icon(
+            icon:const Icon(
               Icons.add,
-              color: background_color,
+              color: Colors.white,
             ),
-            label: Text(
-              'Order',
-              style: TextStyle(color: background_color),
+            label:const Text(
+              'NUEVO PEDIDO',
+              style: TextStyle(color: Colors.white),
             ),
           ),
         ),
@@ -60,6 +60,8 @@ class _BackgroundStackState extends State<BackgroundStack> {
     );
   }
 }
+
+
 
 class _background extends StatelessWidget {
   const _background({

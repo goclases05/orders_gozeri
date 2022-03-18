@@ -1,114 +1,98 @@
+import 'package:app_orders/widget/widget.dart';
+import 'package:badges/badges.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_custom_clippers/flutter_custom_clippers.dart';
 
-class ListOrders extends StatefulWidget {
-  const ListOrders({Key? key}) : super(key: key);
-
-  @override
-  State<ListOrders> createState() => _ListOrdersState();
-}
-
-class _ListOrdersState extends State<ListOrders> {
-  late double height, width;
-
-  @override
-  Widget build(BuildContext context) {
-    Color? primary = Colors.grey[600];
-    Color? secondary = Colors.white;
-    height = MediaQuery.of(context).size.height;
-    width = MediaQuery.of(context).size.width;
-
-    return Scaffold(
-        backgroundColor: secondary,
-        appBar: AppBar(
-          iconTheme: IconThemeData(color: secondary),
-          backgroundColor: primary,
-          elevation: 0,
-          title: Image.asset(
-            'assets/logos/gozeri_white.png',
-            width: 120,
-          ),
-        ),
-        drawer: const Drawer(),
-        body: SingleChildScrollView(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            mainAxisAlignment: MainAxisAlignment.start,
-            children: [
-              Stack(
-                alignment: AlignmentDirectional.topStart,
-                children: [
-                  Container(
-                      height: 150,
-                      width: double.infinity,
-                      child: Container(
-                        height: 50,
-                        color: Colors.red,
-                        child: Text('hola'),
-                      )),
-                  //SearchWidget(primary: primary),
-                  /*Positioned(
-                    bottom: -10,
-                    right: 0,
-                    child: FloatingActionButton(
-                      backgroundColor: const Color(0xff03dac6),
-                      foregroundColor: Colors.black,
-                      onPressed: () {
-                        // Respond to button press
-                      },
-                      child: Icon(Icons.add),
-                    ),
-                  )*/
-                ],
-              )
-            ],
-          ),
-        ));
-  }
-}
-
-class SearchWidget extends StatelessWidget {
-  const SearchWidget({
+class ListOrders extends StatelessWidget {
+  const ListOrders({
     Key? key,
     required this.primary,
+    required this.secondary,
+    required this.height,
+    required this.whith,
   }) : super(key: key);
 
   final Color? primary;
+  final Color? secondary;
+  final double height;
+  final double whith;
+  
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      child: Row(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        mainAxisAlignment: MainAxisAlignment.start,
-        children: [
-          Flexible(
-              flex: 1,
-              child: Container(
-                margin: const EdgeInsets.only(
-                    top: 5, left: 10, right: 10, bottom: 10),
-                child: TextField(
-                  cursorColor: primary,
-                  decoration: InputDecoration(
-                      fillColor: Colors.white,
-                      filled: true,
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(10),
-                        borderSide: BorderSide.none,
-                      ),
-                      hintText: 'Buscar Pedido',
-                      hintStyle: const TextStyle(
-                        color: Colors.grey,
-                        fontSize: 18,
-                      ),
-                      prefixIcon: const Icon(
-                        Icons.search,
-                        size: 20,
-                        color: Colors.grey,
-                      )),
-                ),
-              ))
+    
+
+    return Scaffold(
+      backgroundColor: Colors.transparent,
+      appBar: AppBar(
+        iconTheme: const IconThemeData(color: Colors.white),
+        elevation: 0,
+        backgroundColor: primary,
+        title: Row(
+          children: [
+            const SizedBox(width: 15,),
+            Image.asset(
+              'assets/logos/gozeri_green.png',
+              width: 100,
+            ),
+          ],
+        ),
+        actions: [
+          const SizedBox(width: 10,),
+          IconButton(
+            onPressed: (){}, 
+            icon:Badge(
+              badgeContent: const Text(
+                '9',
+                style: TextStyle(color: Colors.white),
+              ),
+              child: const Icon(Icons.notifications_sharp,color: Colors.white,size: 30,),
+              badgeColor: Colors.orange.shade900,
+              //position: BadgePosition.topEnd(),
+              animationType: BadgeAnimationType.scale,
+              //animationDuration: Duration(milliseconds: 250),
+            ),
+          ),
+          const SizedBox(width: 15,),
+          const DropPerfil(),
+          const SizedBox(width: 15,),
         ],
+      ),
+      body: Container(
+          margin: EdgeInsets.only(top: height * 0.1), 
+          child: Column(
+            children:[
+              Padding(
+               padding: const EdgeInsets.only(top:40,left: 20,right: 20,bottom: 20),
+               child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisAlignment: MainAxisAlignment.start,
+                children:const [
+                   Text("Lista de Pedidos",style: TextStyle(
+                      fontSize: 30,
+                      fontWeight: FontWeight.bold,
+                      color: Color.fromARGB(123, 0, 0, 0)
+                    ),
+                  ),
+                   Text("Registro pedidos en proceso pendientes de terminar",style: TextStyle(
+                      fontSize: 15,
+                      fontWeight: FontWeight.bold,
+                      color: Color.fromARGB(123, 0, 0, 0)
+                    ),
+                  ),
+                 ],
+               ),
+             ),
+              Expanded(
+               child: ListView.builder(
+                 physics: const BouncingScrollPhysics(),
+                 itemCount: 10,
+                 itemBuilder: (context,index){
+                   return TicketView(primary);
+                 }
+                )
+              )
+            ],
+          )
       ),
     );
   }
