@@ -3,9 +3,10 @@ import 'package:flutter/material.dart';
 
 class ArticleHorizontal extends StatelessWidget {
   const ArticleHorizontal({
-    Key? key,
+    Key? key,required this.ID_ARTICULO,
   }) : super(key: key);
 
+  final String ID_ARTICULO;
   @override
   Widget build(BuildContext context) {
     return Card(
@@ -31,28 +32,28 @@ class ArticleHorizontal extends StatelessWidget {
                       padding: const EdgeInsets.all(10),
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
-                        children:const [
-                          Text('Monitor Curvo',
+                        children:[
+                          const Text('Monitor Curvo',
                           style: TextStyle(
                             fontWeight: FontWeight.bold,
                             height: 1.5,
                             fontSize: 18
                           ),
                         ),
-                        Text('Sony SDA Corporation',
+                       const Text('Sony SDA Corporation',
                           style: TextStyle(
                             fontSize: 15,
                             color: Colors.black45
                           ),
                         ),
-                        Text('\$720.00',
-                          style: TextStyle(
+                        Text(ID_ARTICULO,
+                          style: const TextStyle(
                               fontSize: 20,
                               fontWeight: FontWeight.bold,
                               color: Color.fromARGB(255, 4, 146, 165)
                           ),
                         ),
-                         SizedBox(height: 10,)
+                         const SizedBox(height: 10,)
                         ],
                       ),
                     )

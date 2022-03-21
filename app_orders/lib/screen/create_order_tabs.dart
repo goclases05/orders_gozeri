@@ -1,12 +1,12 @@
+
 import 'package:app_orders/models/departamentos_model.dart';
-import 'package:app_orders/services/departamentos_service.dart';
+import 'package:app_orders/providers/departamentos_provider.dart';
 import 'package:app_orders/widget/widget.dart';
 import 'package:badges/badges.dart';
 import 'package:bubble_tab_indicator/bubble_tab_indicator.dart';
 import 'package:flutter/material.dart';
-import 'package:http/http.dart' as http;
+import 'package:provider/provider.dart';
 
-final getDepartamentos = DepartamentosService().getDepartamentos();
 
 class CreateOrders extends StatefulWidget {
   const CreateOrders({Key? key}) : super(key: key);
@@ -15,11 +15,11 @@ class CreateOrders extends StatefulWidget {
   State<CreateOrders> createState() => _CreateOrdersScreenState();
 }
 
-class _CreateOrdersScreenState extends State<CreateOrders>
-    with SingleTickerProviderStateMixin {
-  late TabController _tabController;
+class _CreateOrdersScreenState extends State<CreateOrders>{
 
-  List<Tab> tabs = const <Tab>[
+  
+
+  /*List<Tab> tabs = const <Tab>[
     Tab(
       text: 'Agricultura',
     ),
@@ -31,48 +31,41 @@ class _CreateOrdersScreenState extends State<CreateOrders>
     Tab(text: 'Oficina'),
     Tab(text: 'Servicios'),
     Tab(text: 'Tecnologia'),
-  ];
+  ];*/
 
-  List<Tab> tabss = [];
-
-  Future getCursosData() async {
-    final Uri uri = Uri.parse(
-        "https://app.gozeri.com/flutter_gozeri/departamentos.php?empresa=13");
-    final response = await http.get(uri);
-
-    if (response.statusCode == 200) {
-      final result = departamentosFromJson(response.body);
-
-      final total_depa = result.totalDepa;
-      final departamentos = result.departamentos;
-      for (int i = 0; i < departamentos.length; i++) {
-        tabss.add(
-          Tab(
-            text: departamentos[i].departamento,
-          ),
-        );
-      }
-
-      print(tabss);
-      return tabss;
-    }
-  }
 
   @override
   void initState() {
     super.initState();
-    _tabController = TabController(vsync: this, length: tabs.length);
-    getCursosData();
   }
 
   @override
   void dispose() {
-    _tabController.dispose();
     super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
+  final moviesprovider=Provider.of<DepartamentoProvider>(context);
+  print(moviesprovider.onDisplayMovie);
+
+  final List<Departamento> depa=moviesprovider.onDisplayMovie;
+
+  List<Tab> tabs = <Tab>[
+
+  ];
+
+  for(int i=0;i<depa.length;i++){
+
+    tabs.add(
+       Tab(
+          key: ValueKey(depa[i].id),
+          text: depa[i].departamento,
+        )
+    );
+
+  }
+
     Color? primary = Colors.cyan[600];
     Color? col_secundary = Colors.cyan[800];
     Color? col_white = Colors.white;
@@ -82,13 +75,8 @@ class _CreateOrdersScreenState extends State<CreateOrders>
     String logo = 'https://app.gozeri.com/assets/img/logo.png';
     var name = 'Mesa No.1';
     //getCursosData();
-    if (tabss.length == 0) {
-      setState(() {});
-      return Text('cargando');
-      setState(() {});
-    } else {
       return DefaultTabController(
-        length: tabss.length,
+        length: tabs.length,
         // The Builder widget is used to have a different BuildContext to access
         // closest DefaultTabController.
         child: FutureBuilder(
@@ -138,7 +126,7 @@ class _CreateOrdersScreenState extends State<CreateOrders>
                   // insets: EdgeInsets.all(1),
                   // padding: EdgeInsets.all(10)
                 ),
-                tabs: tabss,
+                tabs: tabs,
               ),
               actions: [
                 IconButton(
@@ -178,27 +166,27 @@ class _CreateOrdersScreenState extends State<CreateOrders>
               ],
             ),
             body: TabBarView(
-              children: tabss.map((Tab tab) {
+              children: tabs.map((Tab tab) {
+                var id=tab.key.toString();
+                String newValue = id.replaceAll("[<'", "").replaceAll("'>]", "");
+                print(newValue);
                 return Expanded(
-                    child: tab.text.toString() == 'dsd'
-                        ? Container(
-                            color: Colors.green,
-                            height: 300,
-                          )
-                        : ListView.builder(
-                            itemCount: 5,
-                            itemBuilder: (context, index) {
-                              return const Padding(
-                                padding: EdgeInsets.all(10),
-                                child: ArticleHorizontal(),
-                              );
-                            },
-                          ));
+                    child:
+                      ListView.builder(
+                        itemCount: 5,
+                        itemBuilder: (context, index) {
+                          return Padding(
+                            padding:const EdgeInsets.all(10),
+                            child: ArticleHorizontal(ID_ARTICULO: newValue),
+                          );
+                        },
+                      )
+                  );
               }).toList(),
             ),
           );
         }),
       );
-    }
+    
   }
 }
