@@ -1,4 +1,5 @@
 
+import 'package:app_orders/components/tabview.dart';
 import 'package:app_orders/models/departamentos_model.dart';
 import 'package:app_orders/providers/departamentos_provider.dart';
 import 'package:app_orders/widget/widget.dart';
@@ -169,19 +170,8 @@ class _CreateOrdersScreenState extends State<CreateOrders>{
               children: tabs.map((Tab tab) {
                 var id=tab.key.toString();
                 String newValue = id.replaceAll("[<'", "").replaceAll("'>]", "");
-                print(newValue);
-                return Expanded(
-                    child:
-                      ListView.builder(
-                        itemCount: 5,
-                        itemBuilder: (context, index) {
-                          return Padding(
-                            padding:const EdgeInsets.all(10),
-                            child: ArticleHorizontal(ID_ARTICULO: newValue),
-                          );
-                        },
-                      )
-                  );
+                
+                return PageTab(id_depa: newValue);
               }).toList(),
             ),
           );
