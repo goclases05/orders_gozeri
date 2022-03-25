@@ -16,20 +16,25 @@ class _BackgroundStackState extends State<BackgroundStack> {
 
   @override
   Widget build(BuildContext context) {
-    Color? primary = Colors.cyan[600];
+    Color? primary = Colors.cyan;
     Color? secondary = Colors.cyan[800];
-    Color? background_color = Colors.grey[300];
+    Color? background_color = Color.fromARGB(255, 236, 239, 241);
     height = MediaQuery.of(context).size.height;
     width = MediaQuery.of(context).size.width;
 
     return Stack(
       children: [
+        Container(
+          height: height,
+          width: width,
+          color: Colors.white,
+        ),
         _background(
             height: height,
             primary: primary,
             background_color: background_color),
         
-        ListOrders(primary: primary, height: height,secondary:secondary,whith: width,),
+        ListOrders(primary: primary, height: height,secondary:secondary,whith: width,background_color:background_color),
         Positioned(
           top: height * 0.17,
           right: 50,
@@ -41,7 +46,7 @@ class _BackgroundStackState extends State<BackgroundStack> {
               Navigator.push(context,
                 PageTransition(
                     duration: const Duration(milliseconds: 500),
-                    type: PageTransitionType.bottomToTop,
+                    type: PageTransitionType.fade,
                     child: CreateOrders()
                 )
               );
@@ -93,6 +98,7 @@ class _background extends StatelessWidget {
             child: Container(
               height: height * 0.8,
               decoration: BoxDecoration(
+                  
                   color: background_color,
                   borderRadius: const BorderRadius.only(
                     topLeft: Radius.circular(50),

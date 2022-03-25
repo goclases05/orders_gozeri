@@ -1,6 +1,6 @@
 import 'package:app_orders/global/environment.dart';
 import 'package:app_orders/models/productos_departamento.dart';
-import 'package:app_orders/widget/widget.dart';
+import 'package:app_orders/widget/article_horizontal.dart';
 import 'package:flutter/material.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 import 'package:http/http.dart' as http;
@@ -8,8 +8,10 @@ import 'package:http/http.dart' as http;
 class PageTab extends StatefulWidget {
   
   final String id_depa;
+  Color? background_color;
+  Color? primary;
 
-  PageTab({ Key? key,required this.id_depa}) : super(key: key);
+  PageTab({ Key? key,required this.id_depa,this.background_color,this.primary}) : super(key: key);
 
   @override
   State<PageTab> createState() => _PageTabState();
@@ -52,37 +54,47 @@ class _PageTabState extends State<PageTab> {
   @override
   Widget build(BuildContext context) {
     return Expanded(
-        child: SmartRefresher(
-          controller: refreshController,
-          enablePullUp: false,
-          onRefresh: () async {
-            final result = await getCursosData(isRefresh: true);
-            if (result) {
-              refreshController.refreshCompleted();
-            } else {
-              refreshController.refreshFailed();
-            }
-          },
-          onLoading: () async {
-            final result = await getCursosData();
-            if (result) {
-              refreshController.loadComplete();
-            } else {
-              refreshController.loadFailed();
-            }
-          },
-          child: ListView.builder(
-            itemCount: list_producto.length,
-            itemBuilder: (context, index) {
-              final producto = list_producto[index];
-
-              return Padding(
-                padding:const EdgeInsets.all(10),
-                child: ArticleHorizontal(list_Prod:producto),
-              );
+        child: Container(
+          height: MediaQuery.of(context).size.height,
+          width: MediaQuery.of(context).size.width,
+          color: widget.background_color,
+          child: SmartRefresher(
+            physics: BouncingScrollPhysics(),
+            header: WaterDropMaterialHeader(
+              color: Colors.white,
+              backgroundColor: widget.primary,
+            ),
+            controller: refreshController,
+            enablePullUp: false,
+            onRefresh: () async {
+              final result = await getCursosData(isRefresh: true);
+              if (result) {
+                refreshController.refreshCompleted();
+              } else {
+                refreshController.refreshFailed();
+              }
             },
-          )
-      )
+            onLoading: () async {
+              final result = await getCursosData();
+              if (result) {
+                refreshController.loadComplete();
+              } else {
+                refreshController.loadFailed();
+              }
+            },
+            child: ListView.builder(
+              itemCount: list_producto.length,
+              itemBuilder: (context, index) {
+                final producto = list_producto[index];
+        
+                return Padding(
+                  padding:const EdgeInsets.all(10),
+                  child: ArticleHorizontal(list_Prod:producto),
+                );
+              },
+            ),
+          ),
+        )
     );
   }
 }

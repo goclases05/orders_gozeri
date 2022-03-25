@@ -7,6 +7,8 @@ class ListOrders extends StatelessWidget {
     Key? key,
     required this.primary,
     required this.secondary,
+    required this.background_color
+,
     required this.height,
     required this.whith,
   }) : super(key: key);
@@ -15,6 +17,7 @@ class ListOrders extends StatelessWidget {
   final Color? secondary;
   final double height;
   final double whith;
+  final Color?background_color;
   
 
   @override
@@ -24,14 +27,14 @@ class ListOrders extends StatelessWidget {
     return Scaffold(
       backgroundColor: Colors.transparent,
       appBar: AppBar(
-        iconTheme: const IconThemeData(color: Colors.white),
+        iconTheme: const IconThemeData(color: Colors.black),
         elevation: 0,
         backgroundColor: primary,
         title: Row(
           children: [
             const SizedBox(width: 15,),
             Image.asset(
-              'assets/logos/gozeri_green.png',
+              'assets/logos/gzeri.png',
               width: 100,
             ),
           ],
@@ -39,21 +42,28 @@ class ListOrders extends StatelessWidget {
         actions: [
           const SizedBox(width: 10,),
           IconButton(
-            onPressed: (){}, 
-            icon:Badge(
-              badgeContent: const Text(
-                '9',
-                style: TextStyle(color: Colors.white),
-              ),
-              child: const Icon(Icons.notifications_sharp,color: Colors.white,size: 30,),
-              badgeColor: Colors.orange.shade900,
-              //position: BadgePosition.topEnd(),
-              animationType: BadgeAnimationType.scale,
-              //animationDuration: Duration(milliseconds: 250),
+              onPressed: () {},
+              icon: Badge(
+                badgeContent: const Text(
+                  '9',
+                  style: TextStyle(color: Colors.white),
+                ),
+                child: CircleAvatar(
+                    backgroundColor: background_color,
+                    radius: 18,
+                    child: const Icon(
+                      Icons.notifications_sharp,
+                      size: 25,
+                      color: Colors.black54,
+                    )),
+                badgeColor: Colors.red.shade700,
+                //position: BadgePosition.topEnd(),
+                animationType: BadgeAnimationType.scale,
+                //animationDuration: Duration(milliseconds: 250),
+              )
             ),
-          ),
           const SizedBox(width: 15,),
-          const DropPerfil(),
+            DropPerfil(primary: primary,background_color: background_color,),
           const SizedBox(width: 15,),
         ],
       ),
@@ -87,7 +97,7 @@ class ListOrders extends StatelessWidget {
                  physics: const BouncingScrollPhysics(),
                  itemCount: 10,
                  itemBuilder: (context,index){
-                   return TicketView(primary);
+                   return TicketView(primary,background_color);
                  }
                 )
               )

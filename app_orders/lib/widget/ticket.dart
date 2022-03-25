@@ -4,7 +4,8 @@ import 'package:google_fonts/google_fonts.dart';
 
 class TicketView extends StatelessWidget {
   final Color? primary;
-  const TicketView(this.primary);
+  final Color? background_color;
+  const TicketView(this.primary,this.background_color);
 
   @override
   Widget build(BuildContext context) {
@@ -102,7 +103,7 @@ class TicketView extends StatelessWidget {
                         topRight: Radius.circular(10),
                         bottomRight: Radius.circular(10),
                       ),
-                      color: Colors.grey.shade300
+                      color: background_color
                     ),
                   ),
                 ),
@@ -139,7 +140,7 @@ class TicketView extends StatelessWidget {
                         bottomLeft: Radius.circular(10),
 
                       ),
-                      color: Colors.grey.shade300
+                      color: background_color
                     ),
                   ),
                 ),

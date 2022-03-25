@@ -2,9 +2,9 @@
 import 'package:app_orders/components/tabview.dart';
 import 'package:app_orders/models/departamentos_model.dart';
 import 'package:app_orders/providers/departamentos_provider.dart';
-import 'package:app_orders/widget/widget.dart';
 import 'package:badges/badges.dart';
 import 'package:bubble_tab_indicator/bubble_tab_indicator.dart';
+
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -67,13 +67,14 @@ class _CreateOrdersScreenState extends State<CreateOrders>{
 
   }
 
-    Color? primary = Colors.cyan[600];
-    Color? col_secundary = Colors.cyan[800];
-    Color? col_white = Colors.white;
-    var size = MediaQuery.of(context).size;
-    Color? background_color = Colors.grey[200];
+    Color? primary = Colors.cyan;
+    Color? secondary = Colors.cyan[800];
+    Color? background_color = const Color.fromARGB(255, 236, 239, 241);
+    Color? texto_color=Colors.white;
+    double height = MediaQuery.of(context).size.height;
+    double width = MediaQuery.of(context).size.width;
 
-    String logo = 'https://app.gozeri.com/assets/img/logo.png';
+    String logo = 'assets/gzeri.png';
     var name = 'Mesa No.1';
     //getCursosData();
       return DefaultTabController(
@@ -91,12 +92,12 @@ class _CreateOrdersScreenState extends State<CreateOrders>{
             }
           });
           return Scaffold(
-            backgroundColor: background_color,
+            backgroundColor: Colors.white,
             appBar: AppBar(
-              iconTheme: IconThemeData(color: col_white),
+              iconTheme: IconThemeData(color: texto_color),
               backgroundColor: primary,
               title: name.isEmpty
-                  ? Image.network(
+                  ? Image.asset(
                       logo,
                       width: 100,
                     )
@@ -107,20 +108,20 @@ class _CreateOrdersScreenState extends State<CreateOrders>{
                           style: TextStyle(
                             fontWeight: FontWeight.bold,
                             fontSize: 20,
-                            color: col_white,
+                            color: texto_color,
                           ),
                         ),
                       ],
                     ),
               bottom: TabBar(
-                labelColor: col_secundary,
+                labelColor: primary,
                 isScrollable: true,
                 //labelColor: Colors.grey[300],
                 //indicatorColor: Colors.white,
-                unselectedLabelColor: Colors.white54,
-                indicator: BubbleTabIndicator(
+                unselectedLabelColor: Color.fromARGB(255, 228, 228, 228),
+                indicator:const BubbleTabIndicator(
                   indicatorHeight: 25.0,
-                  indicatorColor: col_white,
+                  indicatorColor: Colors.white,
                   tabBarIndicatorSize: TabBarIndicatorSize.tab,
                   // Other flags
                   // indicatorRadius: 1,
@@ -131,39 +132,59 @@ class _CreateOrdersScreenState extends State<CreateOrders>{
               ),
               actions: [
                 IconButton(
-                  onPressed: () {},
-                  icon: const Icon(
-                    Icons.swap_horiz,
-                    color: Colors.white,
-                    size: 35,
-                  ),
+                  onPressed: (){}, 
+                  icon:  CircleAvatar(
+                        backgroundColor: background_color,
+                        radius: 18,
+                        child: const Icon(
+                          Icons.swap_horiz,
+                          size: 25,
+                          color: Colors.black54,
+                        ))
                 ),
                 IconButton(
-                  onPressed: () {},
-                  icon: Badge(
-                    badgeContent: const Text(
-                      '9',
-                      style: TextStyle(color: Colors.white),
-                    ),
-                    child: const Icon(
-                      Icons.shopping_cart_outlined,
-                      color: Colors.white,
-                      size: 28,
-                    ),
-                    badgeColor: Colors.red,
-                    //position: BadgePosition.topEnd(),
-                    animationType: BadgeAnimationType.scale,
-                    //animationDuration: Duration(milliseconds: 250),
-                  ),
+                  onPressed: (){}, 
+                  icon:  Badge(
+                      badgeContent: const Text(
+                        '9',
+                        style: TextStyle(color: Colors.white),
+                      ),
+                      child: CircleAvatar(
+                          backgroundColor: background_color,
+                          radius: 18,
+                          child: const Icon(
+                            Icons.shopping_cart_outlined,
+                            size: 25,
+                            color: Colors.black54,
+                          )),
+                      badgeColor: Colors.red.shade700,
+                      //position: BadgePosition.topEnd(),
+                      animationType: BadgeAnimationType.scale,
+                      //animationDuration: Duration(milliseconds: 250),
+                    )
                 ),
                 IconButton(
-                  onPressed: () {},
-                  icon: const Icon(
-                    Icons.search_outlined,
-                    color: Colors.white,
-                    size: 28,
-                  ),
+                  onPressed: (){}, 
+                  icon:  Badge(
+                      badgeContent: const Text(
+                        '1',
+                        style: TextStyle(color: Colors.white),
+                      ),
+                      child: CircleAvatar(
+                          backgroundColor: background_color,
+                          radius: 18,
+                          child: const Icon(
+                            Icons.search_outlined,
+                            size: 25,
+                            color: Colors.black54,
+                          )),
+                      badgeColor: Colors.red.shade700,
+                      //position: BadgePosition.topEnd(),
+                      animationType: BadgeAnimationType.scale,
+                      //animationDuration: Duration(milliseconds: 250),
+                    )
                 ),
+                const SizedBox(width: 10,)
               ],
             ),
             body: TabBarView(
@@ -171,7 +192,7 @@ class _CreateOrdersScreenState extends State<CreateOrders>{
                 var id=tab.key.toString();
                 String newValue = id.replaceAll("[<'", "").replaceAll("'>]", "");
                 
-                return PageTab(id_depa: newValue);
+                return PageTab(id_depa: newValue,background_color: background_color,primary: primary,);
               }).toList(),
             ),
           );

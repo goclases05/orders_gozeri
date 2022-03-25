@@ -43,7 +43,7 @@ class ArticleHorizontal extends StatelessWidget {
                             ),
                           ),
                           Text(list_Prod.descBreve,
-                            maxLines: 3,
+                            maxLines: 2,
                             style: const TextStyle(
                               fontSize: 15,
                               color: Colors.black45
@@ -56,7 +56,7 @@ class ArticleHorizontal extends StatelessWidget {
                                 color: Color.fromARGB(255, 4, 146, 165)
                             ),
                           ),
-                           const SizedBox(height: 10,)
+                           //const SizedBox(height: 10,),
                           ],
                         ),
                       ),
@@ -80,7 +80,29 @@ class ArticleHorizontal extends StatelessWidget {
               )*/
             ]
           ),
-          const Divider(thickness: 1),
+          Container(
+            padding: const EdgeInsets.only(bottom: 10,right: 10),
+            width: double.infinity,
+            child: Row(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              mainAxisAlignment: MainAxisAlignment.end,
+              children: [
+                IconButton(
+                  onPressed: (){}, 
+                  icon:const  CircleAvatar(
+                    backgroundColor: Color.fromARGB(255, 4, 167, 189),
+                    radius: 18,
+                    child: Icon(
+                      Icons.add,
+                      size: 25,
+                      color: Colors.white,
+                    )
+                  )
+                ),
+              ],
+            ),
+          ),
+          /*const Divider(thickness: 1),
           Padding(
             padding: const EdgeInsets.only(right: 10,bottom: 10,top: 5),
             child: Row(
@@ -114,7 +136,7 @@ class ArticleHorizontal extends StatelessWidget {
                 )
               ],
             ),
-          )
+          )*/
           
         ],
       ),
