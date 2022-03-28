@@ -94,8 +94,8 @@ class _CreateOrdersScreenState extends State<CreateOrders>{
           return Scaffold(
             backgroundColor: Colors.white,
             appBar: AppBar(
-              iconTheme: IconThemeData(color: texto_color),
-              backgroundColor: primary,
+              iconTheme: IconThemeData(color: primary),
+              backgroundColor: Colors.white,
               title: name.isEmpty
                   ? Image.asset(
                       logo,
@@ -108,20 +108,20 @@ class _CreateOrdersScreenState extends State<CreateOrders>{
                           style: TextStyle(
                             fontWeight: FontWeight.bold,
                             fontSize: 20,
-                            color: texto_color,
+                            color: primary,
                           ),
                         ),
                       ],
                     ),
               bottom: TabBar(
-                labelColor: primary,
+                labelColor: texto_color,
                 isScrollable: true,
                 //labelColor: Colors.grey[300],
                 //indicatorColor: Colors.white,
-                unselectedLabelColor: Color.fromARGB(255, 228, 228, 228),
-                indicator:const BubbleTabIndicator(
+                unselectedLabelColor: Color.fromARGB(255, 212, 212, 212),
+                indicator:BubbleTabIndicator(
                   indicatorHeight: 25.0,
-                  indicatorColor: Colors.white,
+                  indicatorColor: primary,
                   tabBarIndicatorSize: TabBarIndicatorSize.tab,
                   // Other flags
                   // indicatorRadius: 1,
@@ -165,24 +165,14 @@ class _CreateOrdersScreenState extends State<CreateOrders>{
                 ),
                 IconButton(
                   onPressed: (){}, 
-                  icon:  Badge(
-                      badgeContent: const Text(
-                        '1',
-                        style: TextStyle(color: Colors.white),
-                      ),
-                      child: CircleAvatar(
-                          backgroundColor: background_color,
-                          radius: 18,
-                          child: const Icon(
-                            Icons.search_outlined,
-                            size: 25,
-                            color: Colors.black54,
-                          )),
-                      badgeColor: Colors.red.shade700,
-                      //position: BadgePosition.topEnd(),
-                      animationType: BadgeAnimationType.scale,
-                      //animationDuration: Duration(milliseconds: 250),
-                    )
+                  icon:  CircleAvatar(
+                      backgroundColor: background_color,
+                      radius: 18,
+                      child: const Icon(
+                        Icons.search_outlined,
+                        size: 25,
+                        color: Colors.black54,
+                      ))
                 ),
                 const SizedBox(width: 10,)
               ],
@@ -192,7 +182,7 @@ class _CreateOrdersScreenState extends State<CreateOrders>{
                 var id=tab.key.toString();
                 String newValue = id.replaceAll("[<'", "").replaceAll("'>]", "");
                 
-                return PageTab(id_depa: newValue,background_color: background_color,primary: primary,);
+                return PageTab(id_depa: newValue,background_color: background_color,primary: primary,secondary: secondary,);
               }).toList(),
             ),
           );

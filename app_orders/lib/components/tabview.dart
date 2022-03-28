@@ -10,8 +10,9 @@ class PageTab extends StatefulWidget {
   final String id_depa;
   Color? background_color;
   Color? primary;
+  Color? secondary;
 
-  PageTab({ Key? key,required this.id_depa,this.background_color,this.primary}) : super(key: key);
+  PageTab({ Key? key,required this.id_depa,this.background_color,this.primary,this.secondary}) : super(key: key);
 
   @override
   State<PageTab> createState() => _PageTabState();
@@ -89,7 +90,7 @@ class _PageTabState extends State<PageTab> {
         
                 return Padding(
                   padding:const EdgeInsets.all(10),
-                  child: ArticleHorizontal(list_Prod:producto),
+                  child: ArticleHorizontal(list_Prod:producto,primary: widget.primary,secondary:widget.secondary),
                 );
               },
             ),

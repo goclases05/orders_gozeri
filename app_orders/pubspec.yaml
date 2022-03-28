@@ -45,6 +45,8 @@ dependencies:
   http: ^0.13.4 #preticiones server
   provider: ^6.0.2 #gestor de estado
   pull_to_refresh: ^2.0.0 #refresca widgets
+  count_stepper: ^0.0.4
+  #counter_button: ^1.0.1   #contador de productos stepper
 
   #ticket_widget: ^0.0.1
 
